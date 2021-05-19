@@ -433,8 +433,8 @@ newtons <- function(f, x0, it = 20, tol = 1e-07 ){
   #' }
   #'
   #' > newtons(z, 0.5)
-  #' Number of iteration 6
-  #' Solution 0.865474
+  #' Number of iterations taken 6 
+  #' Solution -2.46744e-08 
   #'
 
 
