@@ -429,12 +429,12 @@ newtons <- function(f, x0, it = 20, tol = 1e-07 ){
   #' @examples
   #'
   #' z <- function(x){
-  #' return(cos(x) - x**3 )
-  #' }
+  #'       return(-x*sin(x))
+  #'        }
   #'
-  #' > newtons(z, 0.5)
-  #' Number of iterations taken 6 
-  #' Solution -2.46744e-08 
+  #' > newtons(z, 9)
+  #' Number of iterations taken 5 
+  #' Solution 7.978666 
   #'
 
 
