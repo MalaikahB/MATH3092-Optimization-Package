@@ -7,6 +7,8 @@ library('plotly')
 ui <- navbarPage(
   "Optimization Package",
 
+
+  #input for using gss function
   tabPanel("Golden Section Search",
            sidebarLayout(
              sidebarPanel(
@@ -33,15 +35,11 @@ ui <- navbarPage(
                h4("Final Results"),
                verbatimTextOutput("golddetail")
 
-
-
-               #second main pane detailing each iteration indicated by slider
-               #h4("Iteration Detail"),
-               #verbatimTextOutput("iteration")
              )
            )
   ),
 
+  #input for brents function
   tabPanel("Brent's Method",
            sidebarLayout(
              sidebarPanel(
@@ -67,7 +65,7 @@ ui <- navbarPage(
              )
            )
   ),
-
+  # input for newtons in 2d
   tabPanel("Newton's Method 2-Dimensional",
            sidebarLayout(
              sidebarPanel(
@@ -93,6 +91,7 @@ ui <- navbarPage(
              )
            )
   ),
+  #input for 3d newtons
   tabPanel("Newton's Method 3-Dimensional",
            sidebarLayout(
              sidebarPanel(
@@ -118,6 +117,7 @@ ui <- navbarPage(
              )
            )
   ),
+  #input log barrier 2d
   tabPanel("Log-Barrier Method 2-Dimensional",
            sidebarLayout(
              sidebarPanel(
@@ -147,7 +147,7 @@ ui <- navbarPage(
              )
            )
   ),
-
+  #input log barrier 3d
   tabPanel("Log-Barrier Method 3-Dimensional",
            sidebarLayout(
              sidebarPanel(
@@ -182,44 +182,8 @@ ui <- navbarPage(
 
 
 
-#Here is the server function for the Shiny example.
-
-
+#Here is the server function
 server <- function(input, output, session) {
-
-
-#reactive slider for 2d plots
-  output$goldslide <- renderUI({
-    sliderInput(inputId = "goldslide",
-                label = "Minumum at Iteration:",
-                min = 1, max = input$goldmaxit,
-                value = 1, step = 1)
-  })
-
-  output$brentslide <- renderUI({
-    sliderInput(inputId = "brentslide",
-                label = "Minumum at Iteration:",
-                min = 1, max = input$brentmaxit,
-                value = 1, step = 1)
-  })
-
-  output$newt2slide <- renderUI({
-    sliderInput(inputId = "newt2slide",
-                label = "Minumum at Iteration:",
-                min = 1, max = input$newt2maxit,
-                value = 1, step = 1)
-  })
-
-  output$lbslide <- renderUI({
-    sliderInput(inputId = "lbslide",
-                label = "Minumum at Iteration:",
-                min = 1, max = input$lb2maxit,
-                value = 1, step = 1)
-  })
-
-
-
-  #convert user input into a working function
 
 
   ##-----GOLDEN
@@ -248,10 +212,11 @@ server <- function(input, output, session) {
     functext <- paste0(functext, substr(x = charfn, start = 1, stop = nchar(charfn)), "}")
 
     golduserfn <- eval(parse(text = functext))
+    #run gss on inputs
     gss(golduserfn, input$goldlower, input$goldupper, input$goldmaxit, input$goldtol)
   })
 
-
+  #golden -- summary
   output$goldsummary <- renderPrint({
     algorithm <- exampleInputgold()
     cat("Function Inputted", "\n")
@@ -259,6 +224,7 @@ server <- function(input, output, session) {
     summary(algorithm)
   })
 
+  #golden -- plot
   output$goldplot <- renderPlotly({
     algorithm <- exampleInputgold()
     x = algorithm$optimal_x[input$goldslide]
@@ -272,10 +238,21 @@ server <- function(input, output, session) {
 
   })
 
+  #golden -- final results
   output$golddetail <- renderPrint({
     algorithm <- exampleInputgold()
     print(algorithm)
   })
+
+  #reactive slider for golden plots
+  output$goldslide <- renderUI({
+    algorithm <- exampleInputgold()
+    sliderInput(inputId = "goldslide",
+                label = "Minumum at Iteration:",
+                min = 1, max = algorithm$iteration,
+                value = 1, step = 1)
+  })
+
 
 
 
@@ -306,12 +283,13 @@ server <- function(input, output, session) {
     functext <- paste0(functext, substr(x = charfn, start = 1, stop = nchar(charfn)), "}")
 
     brentuserfn <- eval(parse(text = functext))
+    #compute brents method on input
     brents(brentuserfn,
            input$brentlower, input$brentupper,
            input$brentmaxit, input$brenttol)
   })
 
-
+  #brents -- summary
   output$brentssummary <- renderPrint({
     algorithm <- exampleInputbrents()
     cat("Function Inputted", "\n")
@@ -319,6 +297,7 @@ server <- function(input, output, session) {
     summary(algorithm)
   })
 
+  # brents -- plot
   output$brentsplot <- renderPlotly({
     algorithm <- exampleInputbrents()
     x = algorithm$root[input$brentslide]
@@ -331,11 +310,22 @@ server <- function(input, output, session) {
 
 
   })
-
+  #brents -- final results
   output$brentsdetail <- renderPrint({
     algorithm <- exampleInputbrents()
     print(algorithm)
   })
+
+  #slider for brents plot
+  output$brentslide <- renderUI({
+    algorithm <- exampleInputbrents()
+    sliderInput(inputId = "brentslide",
+                label = "Minumum at Iteration:",
+                min = 1, max = algorithm$iterations,
+                value = 1, step = 1)
+  })
+
+
 
 
   ## ----NEWTONS2D
@@ -364,13 +354,13 @@ server <- function(input, output, session) {
     functext <- paste0(functext, substr(x = charfn, start = 1, stop = nchar(charfn)), "}")
 
     newt2userfn <- eval(parse(text = functext))
-
+    #compute newtons on user inputs
     newtons(newt2userfn,
             input$newt2x0, input$newt2maxit, input$newt2tol)
 
     })
 
-
+  #newtons -- summary
   output$summary2dnewtons <- renderPrint({
     algorithm <- exampleInput2dnewton()
     cat("Function Inputted", "\n")
@@ -378,6 +368,7 @@ server <- function(input, output, session) {
     summary(algorithm)
   })
 
+  #newtons -- plots
   output$plot2dnewtons <- renderPlotly({
     algorithm <- exampleInput2dnewton()
     x = algorithm$optimal_x[input$newt2slide]
@@ -390,11 +381,21 @@ server <- function(input, output, session) {
 
 
   })
-
+  #newtons -- final results
   output$detail2dnewtons <- renderPrint({
     algorithm <- exampleInput2dnewton()
     print(algorithm)
   })
+
+  #slider for newtons 2d plot
+   output$newt2slide <- renderUI({
+     algorithm <- exampleInput2dnewton()
+      sliderInput(inputId = "newt2slide",
+                  label = "Minumum at Iteration:",
+                  min = 1, max = algorithm$it,
+                  value = 1, step = 1)
+    })
+
 
 
 
@@ -424,13 +425,13 @@ server <- function(input, output, session) {
     functext <- paste0(functext, substr(x = charfn, start = 1, stop = nchar(charfn)), "}")
 
     newt3userfn <- eval(parse(text = functext))
-    print(newt3userfn)
+    #compute newtons on inputs
     newtons(newt3userfn,
             c(input$newt3x0, input$newt3y0), input$newt3maxit,
             input$newt3tol)
   })
 
-
+  #summary of newtons 3d
   output$summary3dnewtons <- renderPrint({
     algorithm <- exampleInput3dnewton()
     cat("Function Inputted", "\n")
@@ -438,6 +439,7 @@ server <- function(input, output, session) {
     summary(algorithm)
   })
 
+   #plot of newtons 3d
   output$plot3dnewtons <- renderPlotly({
     algorithm <- exampleInput3dnewton()
     fig <- plot(algorithm)
@@ -445,7 +447,7 @@ server <- function(input, output, session) {
 
 
   })
-
+  #final results newtons 3d
   output$detail3dnewtons <- renderPrint({
     algorithm <- exampleInput3dnewton()
     print(algorithm)
@@ -480,7 +482,7 @@ server <- function(input, output, session) {
     lb2userfn <- eval(parse(text = functext))
 
 
-    #constraints
+    #constraints -> working fn
     consstr_fn <- c(expr = input$cons2)
     conscharfn <- as.character(consstr_fn)
 
@@ -498,14 +500,14 @@ server <- function(input, output, session) {
 
     usercons2 <- eval(parse(text = constext))
 
-
+    #log barrier on user inputs
     logbarrier(lb2userfn, usercons2, input$barrier2x0,
                input$lb2maxit, input$m2, input$mu2, input$epsilon2, input$t2)
 
 
   })
 
-
+  #lb -- summary 2d
   output$summary2lb <- renderPrint({
     algorithm <- exampleInput2lb()
     cat("Function Inputted", "\n")
@@ -513,6 +515,7 @@ server <- function(input, output, session) {
     summary(algorithm)
   })
 
+  #lb -- plot 2d
   output$plo2tlb <- renderPlotly({
     algorithm <- exampleInput2lb()
     x = algorithm$x_optimal[input$lbslide]
@@ -525,13 +528,20 @@ server <- function(input, output, session) {
 
   })
 
+  #lb -- final results 2d
   output$detail2lb <- renderPrint({
     algorithm <- exampleInput2lb()
     print(algorithm)
   })
 
-
-
+  #slider for lb 2d plot
+  output$lbslide <- renderUI({
+    algorithm <- exampleInput2lb()
+    sliderInput(inputId = "lbslide",
+                label = "Minumum at Iteration:",
+                min = 1, max = algorithm$it,
+                value = 1, step = 1)
+  })
 
 
   ##----- LB3
@@ -563,7 +573,7 @@ server <- function(input, output, session) {
     lbuserfn <- eval(parse(text = functext))
 
 
-    #constraints
+    #constraints -> working fn
     consstr_fn <- c(expr = input$A)
     conscharfn <- as.character(consstr_fn)
 
@@ -583,14 +593,14 @@ server <- function(input, output, session) {
     print(usera)
     print(lbuserfn)
 
-
+    #log barrier on inputs
     logbarrier(lbuserfn, usera, input$b, c(input$barrierx0, input$barriery0),
                input$lbmaxit, input$m, input$mu, input$epsilon3, input$t)
 
 
   })
 
-
+  #lb --summary 3d
   output$summarylb <- renderPrint({
     algorithm <- exampleInputlb()
     cat("Function Inputted", "\n")
@@ -598,6 +608,7 @@ server <- function(input, output, session) {
     summary(algorithm)
   })
 
+  #lb -- plots 3d
   output$plotlb <- renderPlotly({
     algorithm <- exampleInputlb()
     fig <- plot(algorithm)
@@ -606,13 +617,14 @@ server <- function(input, output, session) {
 
   })
 
+  ##lb -- final results 3d
   output$detaillb <- renderPrint({
     algorithm <- exampleInputlb()
     print(algorithm)
   })
 
 
-
 }
 
+#run app
 shinyApp(ui = ui, server = server)
