@@ -97,8 +97,8 @@ ui <- navbarPage(
              sidebarPanel(
 
                textInput("newt3fn", "Function", value = "Enter Function..."),
-               numericInput("newt3x0", "Intial x Guess", value = 0),
-               numericInput("newt3y0", "Intial y Guess", value = 0),
+               numericInput("newt3x0", "Intial x1 Guess", value = 0),
+               numericInput("newt3y0", "Intial x2 Guess", value = 0),
                numericInput("newt3tol", "Tolerance", value = 1e-07),
                numericInput("newt3maxit", "Maximum number of Iterations", max = 20, value = 10),
                actionButton("newt3update", "Compute")
@@ -155,8 +155,8 @@ ui <- navbarPage(
                textInput("lbfn", "Function", value = "Enter Objective Function..."),
                textInput("A", "Sum of Inequality RHS", value = "Enter Constraints..."),
                numericInput("b", "Sum of Inequality LHS", value = 0),
-               numericInput("barrierx0", "Intial Guess", value = 0),
-               numericInput("barriery0", "Intial y Guess", value = 0),
+               numericInput("barrierx0", "Intial x1 Guess", value = 0),
+               numericInput("barriery0", "Intial x2 Guess", value = 0),
                numericInput("lbmaxit", "Maximum number of Iterations", max = 10 , value = 10),
                numericInput("m", "Total Number of Constraints", value = 10),
                numericInput("mu", "Enter Mu", value = 10),
