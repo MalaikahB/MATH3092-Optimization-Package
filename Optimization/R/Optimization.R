@@ -26,15 +26,23 @@ gss <- function(f, a, b, it = 10, tol = 1e-05 ){
 #'
 #' The object of class \code{"golden"} is a list containing the following components:
 #'
-#' @param a the lower bound of the initial lower bound inputted
-#' @param b the upper bound of the initial upper bound inputted
-#' @param func the function that is to be optimized
-#' @param c the final lower bound found by the algorithm
-#' @param d the final upper bound found by the algorithm
-#' @param upperinterval upper bound found after each iteration
-#' @param lowerinterval lower bound found after each iteration
-#' @param optimal_x the optimal point found after each iteration
-#' @param iteration the number of iterations run by the algorithm
+#' \code{a}   the lower bound of the initial lower bound inputted
+#'
+#' \code{b}   the upper bound of the initial upper bound inputted
+#'
+#' \code{func}    the function that is to be optimized
+#'
+#' \code{c}   the final lower bound found by the algorithm
+#'
+#' \code{d}   the final upper bound found by the algorithm
+#'
+#' \code{upperinterval}   upper bound found after each iteration
+#'
+#' \code{lowerinterval}   lower bound found after each iteration
+#'
+#' \code{optimal_x}   the optimal point found after each iteration
+#'
+#' \code{iteration}   the number of iterations run by the algorithm
 #'
 #' @export
 #' @examples
@@ -209,12 +217,17 @@ brents <- function(f, a, b, iteration = 20, tol = 1e-05){
 #'
 #' The object of class \code{"brents"} is a list containing the following components:
 #'
-#' @param lower initial lower bound inputted
-#' @param upper initial upper bound inputted
-#' @param root_x root of function after each iteration
-#' @param func function needed to be optimized
-#' @param final_root final root of the function found by Brent's method
-#' @param iterations Number of iterations ran by the algorithm
+#' \code{lower}   initial lower bound inputted
+#'
+#' \code{upper}   initial upper bound inputted
+#'
+#' \code{root_x}    root of function after each iteration
+#'
+#' \code{func}    function needed to be optimized
+#'
+#' \code{final_root}    final root of the function found by Brent's method
+#'
+#' \code{iterations}    Number of iterations ran by the algorithm
 #'
 #' @examples
 #'
@@ -398,13 +411,19 @@ newtons <- function(f, x0, it = 20, tol = 1e-07 ){
   #'
   #' The object of class \code{"newtons"} is a list containing the following components:
   #'
-  #' @param func Function inputted that is to be optimized
-  #' @param optimal_x the optimal value of x_1 found after each iteration
-  #' @param optimal_y the optimal value of x_2 found after each iteration
-  #' @param intial_x the intial root guess for x_1
-  #' @param intial_y the intual root guess for x_2 in 3-D functions and beyond
-  #' @param sol the optimal point of the function found using Newton's method
-  #' @param it number of iterations the algorithm ran in total
+  #' \code{func}  Function inputted that is to be optimized
+  #'
+  #' \code{optimal_x}   the optimal value of x_1 found after each iteration
+  #'
+  #' \code{optimal_y}   the optimal value of x_2 found after each iteration
+  #'
+  #' \code{intial_x}    the intial root guess for x_1
+  #'
+  #' \code{intial_y}    the intual root guess for x_2 in 3-D functions and beyond
+  #'
+  #'  \code{sol}    the optimal point of the function found using Newton's method
+  #'
+  #'  \code{it}   number of iterations the algorithm ran in total
   #' @export
   #'
   #' @examples
@@ -623,14 +642,22 @@ newtex <- newtons(matyas, c(1, 1))
 #' returning the final result and plot correspondingly.
 #'
 #' The object of class \code{"barrier"} is a list containing the following components:
-#' @param func objective function to be optimized
-#' @param cons Inequality constraints in the form Ax - b
-#' @param x_optimal optimal x_1 found after each outer iteration
-#' @param y_optimal optimal x_2 found after each outer iteration
-#' @param sol final optimal values found by Log-Barrier Method
-#' @param result_function The value of objective function using the \code{x_optimal} and \code{y_optimal} values
-#' @param it number of iterations run by the algorithm
-#' @param newton the optimal result found after each inner iteration
+#'
+#' \code{func}    objective function to be optimized
+#'
+#' \code{cons}    Inequality constraints in the form Ax - b
+#'
+#' \code{x_optimal}   optimal x_1 found after each outer iteration
+#'
+#' \code{y_optimal}   optimal x_2 found after each outer iteration
+#'
+#' \code{sol}   final optimal values found by Log-Barrier Method
+#'
+#' \code{result_function}   The value of objective function using the \code{x_optimal} and \code{y_optimal} values
+#'
+#' \code{it}    number of iterations run by the algorithm
+#'
+#' \code{newton}    the optimal result found after each inner iteration
 #'
 #'
 #' @export
