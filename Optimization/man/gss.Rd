@@ -2,7 +2,7 @@
 % Please edit documentation in R/Optimization.R
 \name{gss}
 \alias{gss}
-\title{Golden-section search function}
+\title{Golden-section search}
 \usage{
 gss(f, a, b, it = 10, tol = 1e-05)
 }
@@ -16,12 +16,39 @@ The function must be strictly unimodal on the interval [a, b], if there is a uni
 
 \item{it}{Number of iterations that the algorithm should run. Default is set at 10.}
 
-\item{tol}{A tolerance level of which is used to show that the function is convergingtowards the optimal solution. Set at 1e-05}
+\item{tol}{A tolerance level of which is used to show that the function is convergingtowards the optimal solution. Set at 0.00001}
+}
+\value{
+\code{gss} returns an object of \code{class}.
+
+The functions \code{summary}, \code{print} and \code{plot} are used to obtain a summary table of results,
+returning the final result and plot correspondingly.
+
+The object of class \code{"golden"} is a list containing the following components:
+
+\code{a}   the lower bound of the initial lower bound inputted
+
+\code{b}   the upper bound of the initial upper bound inputted
+
+\code{func}    the function that is to be optimized
+
+\code{c}   the final lower bound found by the algorithm
+
+\code{d}   the final upper bound found by the algorithm
+
+\code{upperinterval}   upper bound found after each iteration
+
+\code{lowerinterval}   lower bound found after each iteration
+
+\code{optimal_x}   the optimal point found after each iteration
+
+\code{iteration}   the number of iterations run by the algorithm
 }
 \description{
-Golden-section search function
+Golden-section search
 }
 \examples{
+f <- function(x){return((x-2)**2)}
 > gss(f, 1, 5)
  Interation number 10
  The subset interval 1.989217 1.996894

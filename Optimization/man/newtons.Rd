@@ -4,27 +4,48 @@
 \alias{newtons}
 \title{Newton's Method}
 \usage{
-newtons(f, x0, it = 10, tol = 1e-07)
+newtons(f, x0, it = 20, tol = 1e-07)
 }
 \arguments{
-\item{f}{Function f that takes one variable x}
+\item{f}{A differentiable function on \code{(a,b)} on a real interval. Note that the function has to be continuous over an interval (a,b) with x0 ∈ (a,b)}
 
-\item{x0}{The intial guess for the root of the function}
+\item{x0}{he initial guess of the root of the functionif using a multi-dimensional function write in initial guess such that c(x0, y0,..)}
 
-\item{it}{Number of iterations the algorithm should run, default set at 10}
+\item{it}{Number of iterations the algorithm should run, default set at \code{20}}
 
-\item{tol}{Tolerance level, deafukt set at 1e-07}
+\item{tol}{Tolerance level, default set at \code{1e-07}}
 }
 \value{
-root of the function and the number of iterations ran
+\code{newtons} returns an object of \code{class}.
+
+The functions \code{summary}, \code{print} and \code{plot} are used to obtain a summary table of results,
+returning the final result and plot correspondingly.
+
+The object of class \code{"newtons"} is a list containing the following components:
+
+\code{func}  Function inputted that is to be optimized
+
+\code{optimal_x}   the optimal value of x_1 found after each iteration
+
+\code{optimal_y}   the optimal value of x_2 found after each iteration
+
+\code{intial_x}    the intial root guess for x_1
+
+\code{intial_y}    the intual root guess for x_2 in 3-D functions and beyond
+
+ \code{sol}    the optimal point of the function found using Newton's method
+
+ \code{it}   number of iterations the algorithm ran in total
 }
 \description{
 Newton's Method
 }
 \examples{
+
 z <- function(x){
 return(cos(x) - x**3 )
 }
+
 > newtons(z, 0.5)
 Number of iteration 6
 Solution 0.865474

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Optimization.R
 \name{brents}
 \alias{brents}
-\title{Brent's Method for Optimization}
+\title{Brent's Method}
 \usage{
 brents(f, a, b, iteration = 20, tol = 1e-05)
 }
@@ -10,19 +10,47 @@ brents(f, a, b, iteration = 20, tol = 1e-05)
 \item{f}{A function that takes one argument x that is to be optimized
 Note that the function has to be continuous over the interval stated and must have a Lagrange interpolating polynomial of 2 or more}
 
-\item{a}{Known as the contrapoint such that f(a) and f(b) need to contain different signs to each other and the interval contains the solution.}
+\item{a}{Known as the contrapoint such that f(\code{a}) and f(\code{b}) need to contain different signs to each other and the interval contains the solution.}
 
-\item{b}{The current iterate of the algorithm that is the current guess for the rootof the function.}
+\item{b}{The current iterate of the algorithm that is the current guess for the root of the function.}
 
 \item{iteration}{Number of iterations that the algorithm should run. Default is set at 20.}
 
 \item{tol}{A tolerance level of which is used to show that the function is convergingtowards the optimal solution. Default is set at 1e-05}
 }
+\value{
+\code{brents} returns an object of \code{class}.
+
+The functions \code{summary}, \code{print} and \code{plot} are used to obtain a summary table of results,
+returning the final result and plot correspondingly.
+
+The object of class \code{"brents"} is a list containing the following components:
+
+\code{lower}   initial lower bound inputted
+
+\code{upper}   initial upper bound inputted
+
+\code{root_x}    root of function after each iteration
+
+\code{func}    function needed to be optimized
+
+\code{final_root}    final root of the function found by Brent's method
+
+\code{iterations}    Number of iterations ran by the algorithm
+}
 \description{
-Brent's Method for Optimization
+Brent's Method
 }
 \examples{
+
+g <- function(x){
+ return((x**2)-20)
+ }
+
+
 > brents(g, 2, 5, 16)
  Number of iterations 16
  Root 4.472153
+
+
 }
